@@ -218,7 +218,7 @@ def playlist_table(pl_info):
 
     except:
         print('Creating channel table')
-    playlist_table(pl_info)
+playlist_table(pl_info)
 
 #converting from list to tuple
 playlist = []
