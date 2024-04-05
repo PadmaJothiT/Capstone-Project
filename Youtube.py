@@ -22,7 +22,7 @@ channel_id = get_channel_id()
 
 #API Key extracting
 def api_connect():
-    api = "AIzaSyBJ9BEiNRcLPJd2QkLAk2cKN3cGPgN4i-0"
+    api = "AIzaSyBXHYfyw1G021UjGb09r1vvP8NFE2KXBdk"
     api_service_name = "youtube"
     api_version = "v3"
 #creating a common variable by calling the build function
