@@ -5,21 +5,6 @@ import re
 from datetime import datetime
 import streamlit as st
 
-#Streamlit Page
-#CREATING OPTION MENU
-with st.sidebar:
-    st.title(":red[YOUTUBE DATA HARVESTING AND WAREHOUSING]")
-    st.header("SKILL TAKE AWAY")
-    st.caption("Python Scripting")
-    st.caption("API integaration")
-    st.caption("Data Collection")
-    st.caption("SQL Connection and Data management")
-    st.caption("Streamlit Page")
-
-def get_channel_id():
-    return st.text_input("# :red[Enter the Channel ID]")
-channel_id = get_channel_id()
-
 #API Key extracting
 def api_connect():
     api = "AIzaSyBXHYfyw1G021UjGb09r1vvP8NFE2KXBdk"
@@ -166,21 +151,37 @@ def get_playlist_details(channel_id):
                 break
     return All_data
 
+#Streamlit Page
+#CREATING OPTION MENU
+with st.sidebar:
+    st.title(":red[YOUTUBE DATA HARVESTING AND WAREHOUSING]")
+    st.header("SKILL TAKE AWAY")
+    st.caption("Python Scripting")
+    st.caption("API integaration")
+    st.caption("Data Collection")
+    st.caption("SQL Connection and Data management")
+    st.caption("Streamlit Page")
+
+def get_channel_id():
+    return st.text_input("# :red[Enter the Channel ID]")
+channel_id = get_channel_id()
 
 #Creating a button to migrate to SQL in streamlit
-if st.button("Migrate to SQL"):
-    ch_info = get_channel_info(channel_id)
-    pl_info = get_playlist_details(channel_id)
-    vi_ids = get_videos_ids(channel_id)
-    vi_info = get_video_info(vi_ids)
-    com_info = get_comment_info(vi_ids)
+st.button("Migrate to SQL")
+
+#Assigning function to a variable    
+ch_info = get_channel_info(channel_id)
+pl_info = get_playlist_details(channel_id)
+vi_ids = get_videos_ids(channel_id)
+vi_info = get_video_info(vi_ids)
+com_info = get_comment_info(vi_ids)
 
 #MySQL connect to table
 mydb = pymysql.connect(host='127.0.0.1',user='root',passwd='Tspjgoge@5',database='youtube')
 cur = mydb.cursor()
 
 #table creation for sql database
-def channel_table(ch_info):
+def channel_table():
     try:
         #Create table in SQL
         create_query = '''create table if not exists channel(Channel_Id varchar(100),
@@ -194,7 +195,7 @@ def channel_table(ch_info):
         mydb.commit()
     except:
         print ('Channel tables are created')
-channel_table(ch_info)
+channel_table()
 
 #inserting values to table
 cur = mydb.cursor()
@@ -205,7 +206,7 @@ cur.execute(sql, val)
 mydb.commit()
 
 #table creation for playlist details
-def playlist_table(pl_info):
+def playlist_table():
     try:
         #Create table in SQL
         create_query = '''create table if not exists playlist(Playlist_Id varchar(100),
@@ -218,7 +219,7 @@ def playlist_table(pl_info):
 
     except:
         print('Creating channel table')
-playlist_table(pl_info)
+playlist_table()
 
 #converting from list to tuple
 playlist = []
@@ -233,7 +234,7 @@ cur.executemany(sql, val)
 mydb.commit()
 
 #table creation for video details
-def video_table(vi_info):
+def video_table():
     try:
         create_query = '''create table if not exists videos(Channel_Name varchar(100),
                                                             Channel_Id varchar(100),
@@ -255,7 +256,7 @@ def video_table(vi_info):
     except:
         print("Creating video table")
 
-video_table(vi_info)
+video_table()
 
 
 #inserting values to table
@@ -285,7 +286,7 @@ for videos in vi_info:
         print("Error inserting records:", e)
 
 #table creation for comment details
-def comments_table(com_info):
+def comments_table():
     try:
         create_query = '''create table if not exists comments(Comment_Id varchar(100),
                                                                 Video_Id varchar(100),
@@ -297,7 +298,7 @@ def comments_table(com_info):
 
     except:
         print("Creating channel table")
-comments_table(com_info)
+comments_table()
 
 #converting from list to tuple
 comments = []
