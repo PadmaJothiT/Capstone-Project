@@ -10,9 +10,7 @@ def api_connect():
     api = "AIzaSyBXHYfyw1G021UjGb09r1vvP8NFE2KXBdk"
     api_service_name = "youtube"
     api_version = "v3"
-#creating a common variable by calling the build function
     youtube = build(api_service_name,api_version,developerKey=api)
-#returning the common variable to function
     return youtube
 
 #storing the function another variable
@@ -41,15 +39,11 @@ def get_channel_info(channel_id):
     #get uploads by playlistId
 def get_videos_ids(channel_id):
     video_ids=[]
-    #getting the video details by youtube data api v3
     response = youtube.channels().list(id=channel_id,
                                     part='contentDetails').execute()
     Playlist_Id = response['items'][0]['contentDetails']['relatedPlaylists']['uploads']
-    #storing the every video detail page to a variable
     next_page_token=None
-    #using while loop function to run all videos in the channel
     while True:
-        #commanding the video detail data to the maximum of 50
         videos = youtube.playlistItems().list(
                                             part='snippet',
                                             playlistId=Playlist_Id,
