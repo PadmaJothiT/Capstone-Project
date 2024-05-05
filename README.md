@@ -1,5 +1,4 @@
-# Capstone-Project
-Youtube Data Harvesting and Warehousing using SQL and Streamlit
+# Youtube Data Harvesting and Warehousing using SQL and Streamlit
 
 Youtube Data Harvesting and Warehousing using SQL and Streamlit project intends the user to collect data from YouTube channels using the YouTube Data API v3, store it in a MySQL database, and provide querying capabilities via a Streamlit web interface.
 
